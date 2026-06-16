@@ -8,6 +8,7 @@ TOKENIZER_DIR="$CACHE_DIR/tokenizer"
 FLASH_ATTN_URL="http://data-im.baidu-int.com:/home/work/var/CI_DATA/im/static/flash_attn-2.8.3+cu128torch2.10-cp310-cp310-linux_x86_64.whl/flash_attn-2.8.3+cu128torch2.10-cp310-cp310-linux_x86_64.whl.1"
 DATA_URL="http://data-im.baidu-int.com:/home/work/var/CI_DATA/im/static/karpathy-climbmix-400b-shuffle.tar.gz/karpathy-climbmix-400b-shuffle.tar.gz.1"
 TOKENIZER_URL="http://data-im.baidu-int.com:/home/work/var/CI_DATA/im/static/tokenizer.tar.gz/tokenizer.tar.gz.1"
+mkdir -p $CACHE_DIR
 
 # 1. 初始化环境
 if [ ! -d "$SCRIPT_DIR/.venv" ]; then
@@ -27,8 +28,6 @@ if ! python -c "import flash_attn" 2>/dev/null; then
 fi
 
 # 3. 下载数据（并行，已存在则跳过）
-mkdir -p "$CACHE_DIR"
-
 if [ ! -d "$DATA_DIR" ]; then
     wget -O "$CACHE_DIR/data.tar.gz" "$DATA_URL"
     mkdir -p "$DATA_DIR"
